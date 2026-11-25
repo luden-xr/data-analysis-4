@@ -484,9 +484,24 @@ print("전체 이상의", round(ratio, 1), "%")
 
 print("=" * 60)
 print("[실습 6] 두 열이 같이 움직이나")
-pairs = sorted(((float(row[1]), (row[3])) for row in rows), reverse=True)
 
-
+pairs = sorted(
+    ((float(row[1]), float(row[3])) for row in rows if row[1] != "" and row[3] != ""),
+    reverse=True,
+)
+c = [row for row in rows if row[1] == "" or row[3] == ""]
+print("쌍 개수:", len(pairs), c, "빠진 줄 개수:", len(c))
+top5 = pairs[:5]
+low5 = pairs[-5:]
+print(sum(k[1] for k in pairs))
+print("상위 5줄:", sum(k[1] for k in top5) / len(top5))
+print("하위 5줄:", sum(k[1] for k in low5) / len(low5))
+print(
+    "두 평균의 차이:",
+    round(
+        (sum(k[1] for k in top5) / len(top5)) - (sum(k[1] for k in low5) / len(low5)), 2
+    ),
+)
 # TODO ① (1존 온도, CP값) 짝을 만들어 온도 큰 순으로 세우고, 쌍 개수와 빠진 줄을 찍으세요
 # TODO ② 상위 5줄·하위 5줄과 각각의 CP값 평균을 찍으세요
 # TODO ③ 두 평균의 차이를 찍으세요
