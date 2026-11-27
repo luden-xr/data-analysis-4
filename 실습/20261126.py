@@ -79,12 +79,43 @@ print("=" * 60)
 print("[실습 1] 파일을 배열로 읽고 크기부터 셉니다")
 
 # TODO ① 파일을 통째로 full 로 읽고 shape·ndim·size·dtype 과 검산을 찍으세요
+full = np.loadtxt(WELD, skiprows=1, delimiter=",", encoding="utf-8-sig")
+print(
+    f"full의.... 크기{full.shape} / 차원 수{full.ndim} / 개수{full.size} / 종류{full.dtype}"
+)
 # TODO ② 앞 3줄을 찍고, 지수 표기를 끈 뒤 다시 찍으세요
+full_3 = full[:3]
+print("앞 3줄:", full_3)
+np.set_printoptions(suppress=True)
+print("앞 3줄인데... 지수 표기 끈 줄:", full_3)
 # TODO ③ 열 이름(head)을 csv 로 읽어 찍으세요
-# TODO ④ 판정 열(lab)의 종류와 값마다 줄 수, 합 검산을 찍으세요
+with open(WELD, encoding="utf-8-sig") as f:
+    head = next(csv.reader(f))
+print("열 이름:", head)
+# TODO ④ 판정 열(lab)의 종류와 값마다 줄 수, 합 검산을 찍으세요ss
+j = full[:, 5]
+j_s = list(set(j))
+print(j)
+print(j[j == 0])
+print(
+    "판정의 종류:",
+    j_s[:],
+    "0일 때의 줄 수:",
+    j[j == 0].size,
+    "1일 때의 줄 수:",
+    j[j == 1].size,
+)
+print(
+    "검산 = ",
+    "0일 때의 줄 수 + 1일 때의 줄 수:",
+    j[j == 1].size + j[j == 0].size,
+    "=",
+    j.size,
+)
+
 # TODO ⑤ 측정 5열만 weld 로 읽고 shape 와 cols 를 찍으세요
-
-
+weld = np.loadtxt(WELD, skiprows=1, delimiter=",", usecols=5, encoding="utf-8-sig")
+print("shape:", weld.shape, "cols:", head[0:5])
 # =====================================================================
 # 실습 2 — 자료형 함정 두 개를 진짜 데이터에서
 # =====================================================================
